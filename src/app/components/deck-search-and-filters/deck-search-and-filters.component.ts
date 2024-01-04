@@ -9,11 +9,13 @@ import { TypesService } from 'src/app/services/types.service';
   selector: 'app-deck-search-and-filters',
   templateUrl: './deck-search-and-filters.component.html',
   styleUrls: ['./deck-search-and-filters.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeckSearchAndFiltersComponent implements OnInit {
-
-  constructor(private typesService: TypesService, private supertypesService: SupertypesService){}
+  constructor(
+    private typesService: TypesService,
+    private supertypesService: SupertypesService
+  ) {}
 
   cardType$!: Observable<ResponseTypes>;
   cardSupertype$!: Observable<ResponseSupertypes>;

@@ -4,17 +4,14 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { ResponseSupertypes } from '../models/supertypes.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SupertypesService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllSupertypes(): Observable<ResponseSupertypes> {
-    const url = "https://api.pokemontcg.io/v2/supertypes";
-    return this.http.get<ResponseSupertypes>(url).pipe(
-      catchError(this.handleError)
-    );
+    const url = 'https://api.pokemontcg.io/v2/supertypes';
+    return this.http.get<ResponseSupertypes>(url).pipe(catchError(this.handleError));
   }
 
   handleError(error: any): Observable<never> {

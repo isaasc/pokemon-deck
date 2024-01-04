@@ -8,7 +8,7 @@ describe('DeckSearchAndFiltersComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DeckSearchAndFiltersComponent]
+      declarations: [DeckSearchAndFiltersComponent],
     });
     fixture = TestBed.createComponent(DeckSearchAndFiltersComponent);
     component = fixture.componentInstance;

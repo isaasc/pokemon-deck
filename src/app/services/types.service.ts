@@ -4,17 +4,14 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { ResponseTypes } from '../models/types.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TypesService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllTypes(): Observable<ResponseTypes> {
-    const url = "https://api.pokemontcg.io/v2/types";
-    return this.http.get<ResponseTypes>(url).pipe(
-      catchError(this.handleError)
-    );
+    const url = 'https://api.pokemontcg.io/v2/types';
+    return this.http.get<ResponseTypes>(url).pipe(catchError(this.handleError));
   }
 
   handleError(error: any): Observable<never> {

@@ -6,13 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import {
-	IgxIconModule,
-	IgxNavbarModule,
-	IgxButtonModule,
+  IgxIconModule,
+  IgxNavbarModule,
+  IgxButtonModule,
   IgxCardModule,
   IgxSelectModule,
-	IgxInputGroupModule
- } from "igniteui-angular";
+  IgxInputGroupModule,
+} from 'igniteui-angular';
 import { DeckListComponent } from './pages/deck-list/deck-list.component';
 import { DeckCreateComponent } from './pages/deck-create/deck-create.component';
 import { CardComponent } from './components/card/card.component';
@@ -45,9 +45,9 @@ import { CardListComponent } from './components/card-list/card-list.component';
     ReactiveFormsModule,
     HttpClientModule,
     IgxSelectModule,
-    IgxInputGroupModule
+    IgxInputGroupModule,
   ],
   providers: [CardService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

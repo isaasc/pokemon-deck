@@ -7,14 +7,14 @@ import { CardService } from 'src/app/services/card.service';
   selector: 'app-deck-create',
   templateUrl: './deck-create.component.html',
   styleUrls: ['./deck-create.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DeckCreateComponent implements OnInit{
+export class DeckCreateComponent implements OnInit {
   pokemon$!: Observable<PokemonCard[]>;
 
   constructor(private cardService: CardService) {}
 
   ngOnInit(): void {
-      this.pokemon$ = this.cardService.getAllCards();
+    this.pokemon$ = this.cardService.getAllCards();
   }
 }

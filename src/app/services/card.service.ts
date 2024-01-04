@@ -4,14 +4,13 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import { PokemonCard, ResponsePokemonCard } from '../models/pokemon-card.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CardService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllCards(): Observable<PokemonCard[]> {
-    const url = "https://api.pokemontcg.io/v2/cards";
+    const url = 'https://api.pokemontcg.io/v2/cards';
     return this.http.get<ResponsePokemonCard>(url).pipe(
       map(response => response.data),
       catchError(this.handleError)
