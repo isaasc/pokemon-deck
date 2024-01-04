@@ -1,0 +1,16 @@
+<div *ngIf="cardType$ | async as cardTypes">
+  <igx-select #select>
+    <label igxLabel>Types</label>
+    <igx-select-item *ngFor="let type of cardTypes.data" [value]="type">
+        {{type}}
+    </igx-select-item>
+</igx-select>
+</div>
+<div *ngIf="cardSupertype$ | async as cardSupertypes">
+  <igx-select #select>
+    <label igxLabel>Supertypes</label>
+    <igx-select-item *ngFor="let supertypes of cardSupertypes.data" [value]="supertypes">
+        {{supertypes}}
+    </igx-select-item>
+</igx-select>
+</div>
