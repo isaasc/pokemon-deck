@@ -23,24 +23,7 @@ export class CardService {
   constructor(private http: HttpClient) {}
 
   getAllCards(cardsParams: CardsParams): Observable<PokemonCard[]> {
-    let params = new HttpParams().set('orderBy', 'name').set('pageSize', '24').set('page', cardsParams.page.toString());
-
-    let queryParam = '';
-
-    if (cardsParams.supertype) {
-      queryParam += `supertype:${cardsParams.supertype}`;
-    }
-
-    if (cardsParams.type) {
-      if (queryParam !== '') {
-        queryParam += ' ';
-      }
-      queryParam += `types:${cardsParams.type}`;
-    }
-
-    if (queryParam !== '') {
-      params = params.set('q', queryParam);
-    }
+    const params = this.buildParams(cardsParams);
 
     const url = `${this.baseURL}/cards`;
     // return this.http.get<ResponsePokemonCard>(url, { headers: this.httpOptions.headers, params }).pipe(
@@ -50,8 +33,26 @@ export class CardService {
     );
   }
 
-  handleError(error: any): Observable<never> {
+  private handleError(error: any): Observable<never> {
     console.error('An error occurred:', error);
     return throwError(() => 'Something went wrong; Please try again later.');
+  }
+
+  private buildParams(cardsParams: CardsParams): HttpParams {
+    return new HttpParams()
+      .set('orderBy', 'name')
+      .set('pageSize', '24')
+      .set('page', cardsParams.page.toString())
+      .set('q', this.buildQueryParam(cardsParams));
+  }
+
+  private buildQueryParam(cardsParams: CardsParams): string {
+    let queryParam = '';
+
+    queryParam += cardsParams.supertype ? `supertype:${cardsParams.supertype}` : '';
+    queryParam += cardsParams.supertype && cardsParams.type ? ' ' : '';
+    queryParam += cardsParams.type ? `types:${cardsParams.type}` : '';
+
+    return queryParam.trim();
   }
 }
