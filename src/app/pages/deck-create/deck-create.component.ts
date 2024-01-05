@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
 import { PokemonCard } from 'src/app/models/pokemon-card.interface';
 import { CardService } from 'src/app/services/card.service';
 
@@ -7,14 +6,17 @@ import { CardService } from 'src/app/services/card.service';
   selector: 'app-deck-create',
   templateUrl: './deck-create.component.html',
   styleUrls: ['./deck-create.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DeckCreateComponent implements OnInit {
-  pokemon$!: Observable<PokemonCard[]>;
+export class DeckCreateComponent {
+  allCards!: PokemonCard[];
 
-  constructor(private cardService: CardService) {}
+  constructor(private cardService: CardService) {
+    this.cardService.getAllCards(1).subscribe(cards => (this.allCards = cards));
+  }
 
-  ngOnInit(): void {
-    this.pokemon$ = this.cardService.getAllCards();
+  getData() {}
+
+  receiveData(value: string) {
+    this.cardService.getAllCards(2).subscribe(cards => (this.allCards = cards));
   }
 }
