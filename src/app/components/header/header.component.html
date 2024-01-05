@@ -1,11 +1,13 @@
 <igx-navbar class="app-bar fixed top-0">
-  <igx-navbar-action>
+  <igx-navbar-action routerLink="/list">
     <button igxButton="icon" igxRipple class="button">
       <img src="../../../assets/images/logo-pokecoin.png" alt="" />
     </button>
   </igx-navbar-action>
-  <igx-navbar-title class="navbar-content">
+  <igx-navbar-title class="navbar-content" routerLink="/list">
     <h6 class="h6">Pokemon Decks</h6>
   </igx-navbar-title>
-  <button igxButton="icon" igxRipple class="button"><igx-icon> add_circle </igx-icon>New Deck</button>
+  <button routerLink="/create" igxButton="icon" igxRipple class="button">
+    <igx-icon> add_circle </igx-icon>New Deck
+  </button>
 </igx-navbar>
