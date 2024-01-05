@@ -1,3 +1,5 @@
 <app-deck-details></app-deck-details>
-<app-deck-search-and-filters (filterSupertypeEvent)="receiveData($event)"></app-deck-search-and-filters>
-<app-card-list [allCards]="allCards"></app-card-list>
+<app-deck-search-and-filters
+  (filterSupertypeEvent)="receiveDataSupertype($event)"
+  (filterTypeEvent)="receiveDataType($event)"></app-deck-search-and-filters>
+<app-card-list [allCards$]="allCards"></app-card-list>

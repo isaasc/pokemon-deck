@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { PokemonCard } from 'src/app/models/pokemon-card.interface';
-import { CardService } from 'src/app/services/card.service';
+import { CardService, CardsParams } from 'src/app/services/card.service';
 
 @Component({
   selector: 'app-deck-create',
@@ -8,15 +9,22 @@ import { CardService } from 'src/app/services/card.service';
   styleUrls: ['./deck-create.component.scss'],
 })
 export class DeckCreateComponent {
-  allCards!: PokemonCard[];
+  allCards!: Observable<PokemonCard[]>;
+  cardParams: CardsParams = {
+    page: 1,
+  };
 
   constructor(private cardService: CardService) {
-    this.cardService.getAllCards(1).subscribe(cards => (this.allCards = cards));
+    this.allCards = this.cardService.getAllCards(this.cardParams);
   }
 
-  getData() {}
+  receiveDataSupertype(value: string): void {
+    this.cardParams.supertype = value;
+    this.allCards = this.cardService.getAllCards(this.cardParams);
+  }
 
-  receiveData(value: string) {
-    this.cardService.getAllCards(2).subscribe(cards => (this.allCards = cards));
+  receiveDataType(value: string): void {
+    this.cardParams.type = value;
+    this.allCards = this.cardService.getAllCards(this.cardParams);
   }
 }

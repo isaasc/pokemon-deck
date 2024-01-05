@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { PokemonCard } from 'src/app/models/pokemon-card.interface';
-import { CardService } from 'src/app/services/card.service';
 
 @Component({
   selector: 'app-card-list',
@@ -10,7 +10,7 @@ import { CardService } from 'src/app/services/card.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardListComponent {
-  @Input() allCards!: PokemonCard[];
+  @Input() allCards$!: Observable<PokemonCard[]>;
 
-  constructor(private cardService: CardService) {}
+  constructor() {}
 }
