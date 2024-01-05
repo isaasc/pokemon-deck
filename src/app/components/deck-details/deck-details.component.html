@@ -1,27 +1,41 @@
-<div class="container flex justify-between mt-20 mb-8 py-8 flex-wrap pl-8" style="background-color: azure">
-  <div class="text-center flex flex-col items-center">
-    <h3>Deck count</h3>
-    <h4>6/60</h4>
-    <button>Criar</button>
-  </div>
-  <div class="flex flex-col items-center">
-    <img class="w-6/12" src="../../../assets/images/pikachu64.png" alt="pikachu icon" />
-    <p>Pokémon</p>
-    <h4>2</h4>
-  </div>
-  <div class="flex flex-col items-center">
-    <img class="w-6/12" src="../../../assets/images/trainer64.png" alt="trainer icon" />
-    <p>Trainer</p>
-    <h4>2</h4>
-  </div>
-  <div class="flex flex-col items-center">
-    <img class="w-6/12" src="../../../assets/images/energy64.png" alt="energy icon" />
-    <p>Energy</p>
-    <h4 class="text-center">2</h4>
-  </div>
-  <div class="flex flex-col items-center">
-    <img class="w-6/12" src="../../../assets/images/colors64.png" alt="colors icon" />
-    <p>Colors</p>
-    <h4 class="text-center">2</h4>
-  </div>
-</div>
+<igx-expansion-panel class="mt-20">
+  <igx-expansion-panel-header [iconPosition]="'right'">
+    <igx-expansion-panel-title class="flex justify-between text-center">
+      <form>
+        <igx-input-group>
+          <input igxInput name="deckName" type="text" required="required" />
+          <label igxLabel for="deckName">Deck Name</label>
+        </igx-input-group>
+        <div class="button-sample flex">
+          <button igxButton="raised" igxRipple>Create</button>
+        </div>
+      </form>
+      <div class="flex justify-between">
+        <div class="flex flex-col items-center">
+          <img class="w-6/12" src="../../../assets/images/pikachu64.png" alt="pikachu icon" />
+          <p>Pokémon</p>
+          <h4>{{ numberOfPokemons }}</h4>
+        </div>
+        <div class="flex flex-col items-center">
+          <img class="w-6/12" src="../../../assets/images/trainer64.png" alt="trainer icon" />
+          <p>Trainer</p>
+          <h4>{{ numberOfTrainers }}</h4>
+        </div>
+        <div class="flex flex-col items-center">
+          <img class="w-6/12" src="../../../assets/images/energy64.png" alt="energy icon" />
+          <p>Energy</p>
+          <h4 class="text-center">{{ numberOfEnergies }}</h4>
+        </div>
+        <div class="flex flex-col items-center" *ngIf="isDetailsMode">
+          <img class="w-6/12" src="../../../assets/images/colors64.png" alt="colors icon" />
+          <p>Color</p>
+          <h4 class="text-center">{{ numberOfColors }}</h4>
+        </div>
+      </div>
+      <p>{{ numberOfPokemons + numberOfTrainers + numberOfEnergies }}/60</p>
+    </igx-expansion-panel-title>
+  </igx-expansion-panel-header>
+  <igx-expansion-panel-body *ngIf="deckCards$">
+    <app-card-list [allCards$]="deckCards$" [isMiniCard]="true"></app-card-list>
+  </igx-expansion-panel-body>
+</igx-expansion-panel>
