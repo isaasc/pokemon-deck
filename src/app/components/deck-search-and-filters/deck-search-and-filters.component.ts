@@ -1,16 +1,28 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ISelectionEventArgs } from 'igniteui-angular';
+import { ISelectionEventArgs, IgxSelectComponent, IgxLabelDirective, IgxSelectItemComponent } from 'igniteui-angular';
 import { Observable } from 'rxjs';
 import { ResponseSupertypes } from 'src/app/models/supertypes.interface';
 import { ResponseTypes } from 'src/app/models/types.interface';
 import { SupertypesService } from 'src/app/services/supertypes.service';
 import { TypesService } from 'src/app/services/types.service';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-deck-search-and-filters',
-  templateUrl: './deck-search-and-filters.component.html',
-  styleUrls: ['./deck-search-and-filters.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-deck-search-and-filters',
+    templateUrl: './deck-search-and-filters.component.html',
+    styleUrls: ['./deck-search-and-filters.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        NgIf,
+        IgxSelectComponent,
+        IgxLabelDirective,
+        NgFor,
+        IgxSelectItemComponent,
+        AsyncPipe,
+    ],
 })
 export class DeckSearchAndFiltersComponent implements OnInit {
   constructor(

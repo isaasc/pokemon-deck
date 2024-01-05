@@ -8,8 +8,8 @@ describe('MiniCardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MiniCardComponent]
-    });
+    imports: [MiniCardComponent]
+});
     fixture = TestBed.createComponent(MiniCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

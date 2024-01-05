@@ -3,11 +3,30 @@ import { Observable } from 'rxjs';
 import { Supertypes } from 'src/app/models/enums/supertype.enum';
 import { PokemonCard } from 'src/app/models/pokemon-card.interface';
 import { DeckDetailsService } from './deck-details.service';
+import { CardListComponent } from '../card-list/card-list.component';
+import { NgIf } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { IgxExpansionPanelComponent, IgxExpansionPanelHeaderComponent, IgxExpansionPanelTitleDirective, IgxInputGroupComponent, IgxInputDirective, IgxLabelDirective, IgxButtonDirective, IgxRippleDirective, IgxExpansionPanelBodyComponent } from 'igniteui-angular';
 
 @Component({
-  selector: 'app-deck-details',
-  templateUrl: './deck-details.component.html',
-  styleUrls: ['./deck-details.component.scss'],
+    selector: 'app-deck-details',
+    templateUrl: './deck-details.component.html',
+    styleUrls: ['./deck-details.component.scss'],
+    standalone: true,
+    imports: [
+        IgxExpansionPanelComponent,
+        IgxExpansionPanelHeaderComponent,
+        IgxExpansionPanelTitleDirective,
+        ReactiveFormsModule,
+        IgxInputGroupComponent,
+        IgxInputDirective,
+        IgxLabelDirective,
+        IgxButtonDirective,
+        IgxRippleDirective,
+        NgIf,
+        IgxExpansionPanelBodyComponent,
+        CardListComponent,
+    ],
 })
 export class DeckDetailsComponent implements OnInit {
   @Input() isDetailsMode: boolean = false;

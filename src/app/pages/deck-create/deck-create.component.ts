@@ -2,11 +2,20 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PokemonCard } from 'src/app/models/pokemon-card.interface';
 import { CardService, CardsParams } from 'src/app/services/card.service';
+import { CardListComponent } from '../../components/card-list/card-list.component';
+import { DeckSearchAndFiltersComponent } from '../../components/deck-search-and-filters/deck-search-and-filters.component';
+import { DeckDetailsComponent } from '../../components/deck-details/deck-details.component';
 
 @Component({
-  selector: 'app-deck-create',
-  templateUrl: './deck-create.component.html',
-  styleUrls: ['./deck-create.component.scss'],
+    selector: 'app-deck-create',
+    templateUrl: './deck-create.component.html',
+    styleUrls: ['./deck-create.component.scss'],
+    standalone: true,
+    imports: [
+        DeckDetailsComponent,
+        DeckSearchAndFiltersComponent,
+        CardListComponent,
+    ],
 })
 export class DeckCreateComponent {
   allCards!: Observable<PokemonCard[]>;
