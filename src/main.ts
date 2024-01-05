@@ -1,22 +1,48 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
-import { AppComponent } from './app/app.component';
-import { withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IgxNavbarModule, IgxIconModule, IgxButtonModule, IgxCardModule, IgxSelectModule, IgxInputGroupModule, IgxRippleModule, IgxForOfModule, IgxListModule, IgxPaginatorModule, IgxExpansionPanelModule, IgxLayoutModule } from 'igniteui-angular';
-import { AppRoutingModule } from './app/app-routing.module';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
+import {
+  IgxButtonModule,
+  IgxCardModule,
+  IgxExpansionPanelModule,
+  IgxForOfModule,
+  IgxIconModule,
+  IgxInputGroupModule,
+  IgxLayoutModule,
+  IgxListModule,
+  IgxNavbarModule,
+  IgxPaginatorModule,
+  IgxRippleModule,
+  IgxSelectModule,
+} from 'igniteui-angular';
+import { AppComponent } from './app/app.component';
+import { APP_ROUTES } from './app/app.routes';
 import { CardService } from './app/services/card.service';
 
 bootstrapApplication(AppComponent, {
-    providers: [
-        importProvidersFrom(BrowserModule, AppRoutingModule, IgxNavbarModule, IgxIconModule, IgxButtonModule, IgxCardModule, ReactiveFormsModule, IgxSelectModule, IgxInputGroupModule, IgxRippleModule, IgxForOfModule, IgxListModule, IgxPaginatorModule, IgxExpansionPanelModule, IgxLayoutModule),
-        CardService,
-        provideAnimations(),
-        provideHttpClient(withInterceptorsFromDi()),
-    ]
-})
-  .catch(err => console.error(err));
+  providers: [
+    importProvidersFrom(
+      BrowserModule,
+      IgxNavbarModule,
+      IgxIconModule,
+      IgxButtonModule,
+      IgxCardModule,
+      ReactiveFormsModule,
+      IgxSelectModule,
+      IgxInputGroupModule,
+      IgxRippleModule,
+      IgxForOfModule,
+      IgxListModule,
+      IgxPaginatorModule,
+      IgxExpansionPanelModule,
+      IgxLayoutModule
+    ),
+    CardService,
+    provideAnimations(),
+    provideHttpClient(withInterceptorsFromDi()),
+    provideRouter(APP_ROUTES),
+  ],
+}).catch(err => console.error(err));
