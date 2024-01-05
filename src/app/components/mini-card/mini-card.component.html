@@ -1,0 +1,17 @@
+<div class="sample-column card-wrapper" *ngIf="card">
+  <!-- <div [ngStyle]="{ 'background-image': 'url(' + card.images.large + ')' }">
+    <h5 igxCardHeaderTitle>{{ card.name }}</h5>
+    <h5 igxCardHeaderSubtitle>{{ card.supertype }}</h5>
+  </div> -->
+  <igx-card [horizontal]="true">
+    <div igxLayout igxLayoutDir="column" igxFlex [igxFlexGrow]="1">
+      <igx-card-header>
+        <h5 igxCardHeaderTitle>{{ card.name }}</h5>
+        <h5 igxCardHeaderSubtitle>{{ card.supertype }}</h5>
+        <igx-card-media width="64px" height="64px">
+          <img [src]="card.images.large" />
+        </igx-card-media>
+      </igx-card-header>
+    </div>
+  </igx-card>
+</div>
