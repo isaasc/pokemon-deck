@@ -1,13 +1,10 @@
-<section *ngIf="allCards$ | async as cards" class="flex flex-col">
-  <div class="flex flex-wrap justify-between">
-    <ng-container *ngFor="let card of cards">
-      <ng-container *ngIf="isMiniCard; else normalCards">
-        <app-mini-card (onClick)="removeCardOnDeck(card)" [card]="card"></app-mini-card>
-      </ng-container>
-      <ng-template #normalCards>
-        <app-card (click)="addCardOnDeck(card)" [cardImage]="card.images.small"></app-card>
-      </ng-template>
+<section *ngIf="allCards$ | async as cards" class="flex mt-8 flex-wrap justify-center gap-4">
+  <ng-container *ngFor="let card of cards; trackBy: trackByItems">
+    <ng-container *ngIf="isMiniCard; else normalCards">
+      <app-mini-card (click)="removeCardOnDeck(card)" [card]="card"></app-mini-card>
     </ng-container>
-  </div>
-  <button type="button">Load More Cards</button>
+    <ng-template #normalCards>
+      <app-card (click)="addCardOnDeck(card)" [cardImage]="card.images.small"></app-card>
+    </ng-template>
+  </ng-container>
 </section>
