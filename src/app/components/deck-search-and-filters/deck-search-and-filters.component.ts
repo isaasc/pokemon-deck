@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ISelectionEventArgs } from 'igniteui-angular';
 import { Observable } from 'rxjs';
 import { ResponseSupertypes } from 'src/app/models/supertypes.interface';
 import { ResponseTypes } from 'src/app/models/types.interface';
@@ -17,11 +18,22 @@ export class DeckSearchAndFiltersComponent implements OnInit {
     private supertypesService: SupertypesService
   ) {}
 
+  @Output() filterTypeEvent = new EventEmitter<string>();
+  @Output() filterSupertypeEvent = new EventEmitter<string>();
+
   cardType$!: Observable<ResponseTypes>;
   cardSupertype$!: Observable<ResponseSupertypes>;
 
   ngOnInit(): void {
     this.cardType$ = this.typesService.getAllTypes();
     this.cardSupertype$ = this.supertypesService.getAllSupertypes();
+  }
+
+  sendFilterSupertype(changeValue: ISelectionEventArgs): void {
+    this.filterSupertypeEvent.emit(changeValue.newSelection.value);
+  }
+
+  sendFilterType(changeValue: ISelectionEventArgs): void {
+    this.filterTypeEvent.emit(changeValue.newSelection.value);
   }
 }

@@ -1,16 +1,18 @@
-<div *ngIf="cardType$ | async as cardTypes">
-  <igx-select #select>
-    <label igxLabel>Types</label>
-    <igx-select-item *ngFor="let type of cardTypes.data" [value]="type">
-      {{ type }}
-    </igx-select-item>
-  </igx-select>
-</div>
-<div *ngIf="cardSupertype$ | async as cardSupertypes">
-  <igx-select #select>
+<form class="grid grid-cols-2 gap-x-4 gap-y-2">
+  <igx-select
+    #select
+    *ngIf="cardSupertype$ | async as cardSupertypes"
+    (selectionChanging)="sendFilterSupertype($event)">
     <label igxLabel>Supertypes</label>
     <igx-select-item *ngFor="let supertypes of cardSupertypes.data" [value]="supertypes">
       {{ supertypes }}
     </igx-select-item>
   </igx-select>
-</div>
+
+  <igx-select #select *ngIf="cardType$ | async as cardTypes" (selectionChanging)="sendFilterType($event)">
+    <label igxLabel>Types</label>
+    <igx-select-item *ngFor="let type of cardTypes.data" [value]="type">
+      {{ type }}
+    </igx-select-item>
+  </igx-select>
+</form>
