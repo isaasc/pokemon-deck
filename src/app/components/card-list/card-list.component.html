@@ -1,1 +1,8 @@
-<p>card-list works!</p>
+<section *ngIf="allCards as cards" class="flex flex-col">
+  <div class="flex flex-wrap justify-between">
+    <ng-container *ngFor="let card of cards">
+      <app-card [cardImage]="card.images.small"></app-card>
+    </ng-container>
+  </div>
+  <button type="button">Load More Cards</button>
+</section>
