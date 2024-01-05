@@ -43,6 +43,7 @@ export class CardService {
       .set('orderBy', 'name')
       .set('pageSize', '24')
       .set('page', cardsParams.page.toString())
+      .set('select', 'id,name,supertype,types,images')
       .set('q', this.buildQueryParam(cardsParams));
   }
 
