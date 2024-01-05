@@ -1,5 +1,7 @@
 <app-deck-details></app-deck-details>
 <app-deck-search-and-filters
+  class="mt-20"
   (filterSupertypeEvent)="receiveDataSupertype($event)"
   (filterTypeEvent)="receiveDataType($event)"></app-deck-search-and-filters>
-<app-card-list [allCards$]="allCards"></app-card-list>
+<app-card-list [allCards$]="allCards" class="mt-20"></app-card-list>
+<button type="button">Load More Cards</button>

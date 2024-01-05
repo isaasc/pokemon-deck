@@ -7,7 +7,7 @@
 /* autoprefixer grid: on */
 
 @include core();
-@include typography($font-family: $material-typeface, $type-scale: $material-type-scale);
+@include typography($font-family: 'Poppins', $type-scale: $fluent-type-scale);
 @include theme($default-palette);
 // CSS Reset, comment out if not required or using a different module
 
@@ -31,5 +31,23 @@
   h6,
   p {
     margin: 0;
+    color: ghostwhite;
   }
+}
+
+.igx-navbar {
+  min-height: 4.5rem;
+}
+
+button {
+  border-radius: 4px;
+  border: 1px solid #fff;
+  background-color: #fff;
+  width: fit-content;
+  padding: 0.2rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  height: fit-content;
+  vertical-align: middle;
+  color: #1d2c5e;
 }
