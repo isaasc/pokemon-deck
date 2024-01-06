@@ -44,9 +44,10 @@ button {
   background-color: #fff;
   width: fit-content;
   padding: 0.2rem 0.8rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 800;
   height: fit-content;
-  vertical-align: middle;
+  display: flex;
+  align-items: center;
   color: #1d2c5e;
 }
