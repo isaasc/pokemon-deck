@@ -1,7 +1,7 @@
 import { PokemonCard } from './pokemon-card.interface';
 
 export interface Deck {
-  name: string;
+  id?: string;
   cards: PokemonCard[];
-  id: number;
+  name: string;
 }
