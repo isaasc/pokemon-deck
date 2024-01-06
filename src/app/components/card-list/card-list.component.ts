@@ -18,6 +18,7 @@ import { MiniCardComponent } from '../mini-card/mini-card.component';
 export class CardListComponent {
   @Input() allCards$!: Observable<PokemonCard[]>;
   @Input() isMiniCard: boolean = false;
+  @Input() deckCards?: PokemonCard[];
 
   constructor(private deckDetailsService: DeckDetailsService) {}
 
