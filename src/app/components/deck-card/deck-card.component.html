@@ -1,0 +1,14 @@
+<igx-card elevated class="w-48">
+  <igx-card-media height="180px">
+    <img [src]="deck.cards[0].images.small" />
+  </igx-card-media>
+  <igx-card-header class="flex justify-around">
+    <h3 class="w-32" igxCardHeaderTitle>{{ deck.name }}</h3>
+    <igx-card-actions>
+      <button igxButton="icon" igxRipple [igxRippleCentered]="true" igxEnd>
+        <igx-icon>edit</igx-icon>
+        <igx-icon>delete</igx-icon>
+      </button>
+    </igx-card-actions>
+  </igx-card-header>
+</igx-card>
