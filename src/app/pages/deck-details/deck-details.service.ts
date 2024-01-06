@@ -32,6 +32,11 @@ export class DeckDetailsService {
   }
 
   addCard(card: PokemonCard): void {
+    if (this.hasMoreThanFourCardsWithSameName(this.getDeckCards(), card.name)) {
+      alert('Seu Deck já possui outras 4 cartas com esse mesmo nome');
+      return;
+    }
+
     this.deckCards.push(card);
     this.emitDeckCards();
     this.emitDeckContainsNumberOfValidCards();
@@ -49,5 +54,11 @@ export class DeckDetailsService {
 
   private emitDeckCards(): void {
     this.deckCardsSubject.next([...this.deckCards]);
+  }
+
+  private hasMoreThanFourCardsWithSameName(cards: PokemonCard[], targetName: string): boolean {
+    const cardsWithSameName = cards.filter(card => card.name === targetName);
+
+    return cardsWithSameName.length >= 4;
   }
 }
