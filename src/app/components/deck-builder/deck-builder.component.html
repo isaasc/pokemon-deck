@@ -1,0 +1,28 @@
+<igx-expansion-panel class="deck-details">
+  <igx-expansion-panel-header [iconPosition]="'right'" class="test-header">
+    <igx-expansion-panel-title>
+      <app-deck-information [deckCards$]="deckCards$"></app-deck-information>
+    </igx-expansion-panel-title>
+  </igx-expansion-panel-header>
+  <igx-expansion-panel-body *ngIf="deckCards$">
+    <app-card-list [allCards$]="deckCards$" [isMiniCard]="true"></app-card-list>
+  </igx-expansion-panel-body>
+</igx-expansion-panel>
+
+<igx-dialog #form [closeOnOutsideSelect]="true">
+  <igx-dialog-title>
+    <p>Create Deck</p>
+  </igx-dialog-title>
+
+  <form class="signInForm">
+    <igx-input-group>
+      <label igxLabel for="name">Deck Name</label>
+      <input igxInput id="name" type="text" />
+    </igx-input-group>
+  </form>
+
+  <div igxDialogActions>
+    <button igxButton (click)="form.close()">CANCEL</button>
+    <button igxButton (click)="form.close()">CREATE</button>
+  </div>
+</igx-dialog>
