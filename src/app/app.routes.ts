@@ -8,4 +8,5 @@ export const APP_ROUTES: Routes = [
   { path: 'list', component: DeckListComponent },
   { path: 'create', loadComponent: () => DeckCreateComponent },
   { path: 'details/:id', loadComponent: () => DeckDetailsComponent },
+  { path: 'edit/:id', loadComponent: () => DeckCreateComponent },
 ];
