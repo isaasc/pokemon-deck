@@ -1,12 +1,14 @@
 <section class="mt-24 flex flex-wrap justify-center gap-4">
-  <ng-container *ngIf="decks.length !== 0; addDeck">
+  <ng-container *ngIf="decks.length !== 0; else addDeck">
     <ng-container *ngFor="let deck of decks">
-      <app-deck-card [deck]="deck" [routerLink]="['/details', deck.id]"></app-deck-card>
+      <app-deck-card [deck]="deck"></app-deck-card>
     </ng-container>
   </ng-container>
 
   <ng-template #addDeck>
-    <h5>Que tal adicionar um Deck?</h5>
+    <div style="background-color: red" class="w-48">
+      <h5>Que tal adicionar um Deck?</h5>
+    </div>
   </ng-template>
 </section>
 
