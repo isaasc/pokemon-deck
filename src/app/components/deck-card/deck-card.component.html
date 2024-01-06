@@ -1,14 +1,16 @@
-<igx-card elevated class="w-48">
-  <igx-card-media height="180px">
+<igx-card elevated class="w-52 h-72">
+  <igx-card-media class="h-44" [routerLink]="['/details', deck.id]">
     <img [src]="deck.cards[0].images.small" />
   </igx-card-media>
-  <igx-card-header class="flex justify-around">
-    <h3 class="w-32" igxCardHeaderTitle>{{ deck.name }}</h3>
-    <igx-card-actions>
-      <button igxButton="icon" igxRipple [igxRippleCentered]="true" igxEnd>
-        <igx-icon>edit</igx-icon>
-        <igx-icon>delete</igx-icon>
-      </button>
+  <igx-card-header class="flex flex-col justify-center">
+    <h3 igxCardHeaderTitle class="w-44 h-9 text-center truncate ..." [routerLink]="['/details', deck.id]">
+      {{ deck.name }}
+    </h3>
+    <igx-card-actions class="w-full flex justify-center">
+      <div>
+        <igx-icon [routerLink]="['/edit', deck.id]" class="mr-2">edit</igx-icon>
+        <igx-icon (click)="removeDeck()">delete</igx-icon>
+      </div>
     </igx-card-actions>
   </igx-card-header>
 </igx-card>
