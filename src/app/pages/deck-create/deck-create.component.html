@@ -1,7 +1,11 @@
 <section class="m-24">
   <h2>Create Deck</h2>
   <app-deck-builder></app-deck-builder>
-  <button (click)="form.open()">Save</button>
+  <button (click)="form.open()" [disabled]="isDeckInvalid" [igxTooltipTarget]="locationTooltip">Save</button>
+  <div #locationTooltip="tooltip" igxTooltip>
+    {{ isDeckInvalid ? 'Number of cards needs to be between 24 and 60' : 'Save' }}
+  </div>
+
   <app-deck-search-and-filters
     class="mt-20"
     (filterSupertypeEvent)="receiveDataSupertype($event)"
@@ -15,7 +19,7 @@
     <p>Create Deck</p>
   </igx-dialog-title>
 
-  <form class="signInForm" [formGroup]="deckForm">
+  <form [formGroup]="deckForm">
     <igx-input-group>
       <label igxLabel for="name">Deck Name</label>
       <input igxInput id="name" type="text" formControlName="name" />

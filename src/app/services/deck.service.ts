@@ -27,6 +27,7 @@ export class DeckService {
     do {
       newDeckId = uuidv4();
     } while (!this.isDeckIdUnique(newDeckId, storedDecks));
+    card.id = newDeckId;
 
     storedDecks.push(card);
 

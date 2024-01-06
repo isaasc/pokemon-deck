@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { IGX_DIALOG_DIRECTIVES, IgxButtonModule, IgxInputGroupModule } from 'igniteui-angular';
+import { IGX_DIALOG_DIRECTIVES, IgxButtonModule, IgxInputGroupModule, IgxTooltipModule } from 'igniteui-angular';
 import { Observable } from 'rxjs';
 import { DeckBuilderComponent } from 'src/app/components/deck-builder/deck-builder.component';
 import { DeckForm } from 'src/app/models/deck-form.type';
@@ -26,12 +27,15 @@ import { DeckDetailsService } from '../deck-details/deck-details.service';
     DeckSearchAndFiltersComponent,
     CardListComponent,
     IGX_DIALOG_DIRECTIVES,
-
+    CommonModule,
     RouterModule,
+    IgxTooltipModule,
   ],
 })
-export class DeckCreateComponent {
+export class DeckCreateComponent implements OnInit {
   allCards$!: Observable<PokemonCard[]>;
+  isDeckInvalid$!: Observable<boolean>;
+  isDeckInvalid!: boolean;
   deckForm!: FormGroup<DeckForm>;
   cardParams: CardsParams = {
     page: 1,
@@ -45,6 +49,11 @@ export class DeckCreateComponent {
     private fb: FormBuilder
   ) {
     this.allCards$ = this.cardService.getAllCards(this.cardParams);
+  }
+
+  ngOnInit(): void {
+    this.deckDetailsService.isDeckInvalid().subscribe(result => (this.isDeckInvalid = result));
+
     this.deckForm = this.fb.group({
       name: ['', { nonNullable: true, validators: [Validators.required] }],
     });
