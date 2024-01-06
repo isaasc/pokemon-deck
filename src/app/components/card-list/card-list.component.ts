@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { PokemonCard } from 'src/app/models/pokemon-card.interface';
+import { DeckDetailsService } from '../../pages/deck-details/deck-details.service';
 import { CardComponent } from '../card/card.component';
-import { DeckDetailsService } from '../deck-details/deck-details.service';
 import { MiniCardComponent } from '../mini-card/mini-card.component';
 
 @Component({

@@ -1,7 +1,29 @@
-<app-deck-details></app-deck-details>
-<app-deck-search-and-filters
-  class="mt-20"
-  (filterSupertypeEvent)="receiveDataSupertype($event)"
-  (filterTypeEvent)="receiveDataType($event)"></app-deck-search-and-filters>
-<app-card-list [allCards$]="allCards" class="mt-20"></app-card-list>
-<button type="button">Load More Cards</button>
+<section class="m-24">
+  <h2>Create Deck</h2>
+  <app-deck-builder></app-deck-builder>
+  <button (click)="form.open()">Save</button>
+  <app-deck-search-and-filters
+    class="mt-20"
+    (filterSupertypeEvent)="receiveDataSupertype($event)"
+    (filterTypeEvent)="receiveDataType($event)"></app-deck-search-and-filters>
+  <app-card-list [allCards$]="allCards$" class="mt-20"></app-card-list>
+  <button type="button">Load More Cards</button>
+</section>
+
+<igx-dialog #form [closeOnOutsideSelect]="true">
+  <igx-dialog-title>
+    <p>Create Deck</p>
+  </igx-dialog-title>
+
+  <form class="signInForm" [formGroup]="deckForm">
+    <igx-input-group>
+      <label igxLabel for="name">Deck Name</label>
+      <input igxInput id="name" type="text" formControlName="name" />
+    </igx-input-group>
+  </form>
+
+  <div igxDialogActions>
+    <button igxButton (click)="form.close()">CANCEL</button>
+    <button igxButton type="submit" [disabled]="!deckForm.valid" (click)="createDeck()">CREATE</button>
+  </div>
+</igx-dialog>
