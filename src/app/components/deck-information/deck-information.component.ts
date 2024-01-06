@@ -13,8 +13,8 @@ import { DeckService } from 'src/app/services/deck.service';
   styleUrls: ['./deck-information.component.scss'],
 })
 export class DeckInformationComponent implements OnInit, OnDestroy {
-  @Input() deck!: Deck;
-  @Input() deckCards$!: Observable<PokemonCard[]>;
+  @Input() deck?: Deck;
+  @Input() deckCards$?: Observable<PokemonCard[]>;
   subscription = new Subject();
   numberOfPokemons: number = 0;
   numberOfTrainers: number = 0;
@@ -24,19 +24,22 @@ export class DeckInformationComponent implements OnInit, OnDestroy {
   constructor(private deckService: DeckService) {}
 
   ngOnInit(): void {
-    this.deckCards$.pipe(takeUntil(this.subscription)).subscribe(cards => {
-      if (cards.length === 0) {
-        return;
-      }
-      this.numberOfPokemons = this.deckService.cardNumberOfSupertype(cards, Supertypes.POKEMON);
-      this.numberOfTrainers = this.deckService.cardNumberOfSupertype(cards, Supertypes.TRAINER);
-      this.numberOfEnergies = this.deckService.cardNumberOfSupertype(cards, Supertypes.ENERGY);
-    });
+    if (this.deckCards$) {
+      this.deckCards$.pipe(takeUntil(this.subscription)).subscribe(cards => {
+        if (cards.length === 0) {
+          return;
+        }
+        this.numberOfPokemons = this.deckService.cardNumberOfSupertype(cards, Supertypes.POKEMON);
+        this.numberOfTrainers = this.deckService.cardNumberOfSupertype(cards, Supertypes.TRAINER);
+        this.numberOfEnergies = this.deckService.cardNumberOfSupertype(cards, Supertypes.ENERGY);
+      });
+    }
 
     if (this.deck) {
       this.numberOfPokemons = this.deckService.cardNumberOfSupertype(this.deck.cards, Supertypes.POKEMON);
       this.numberOfTrainers = this.deckService.cardNumberOfSupertype(this.deck.cards, Supertypes.TRAINER);
       this.numberOfEnergies = this.deckService.cardNumberOfSupertype(this.deck.cards, Supertypes.ENERGY);
+      this.numberOfColors = this.deckService.countUniqueTypes(this.deck.cards);
     }
   }
 
