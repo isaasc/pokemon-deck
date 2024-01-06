@@ -6,7 +6,7 @@ export interface PokemonCard {
   id: string;
   name: string;
   supertype: string;
-  types: string[];
+  types?: string[];
   images: ImageSizes;
 }
 
