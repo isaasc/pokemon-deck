@@ -11,8 +11,12 @@ export class DeckDetailsService {
 
   constructor() {}
 
-  getDeckCards(): Observable<PokemonCard[]> {
+  getDeckCardsObservable(): Observable<PokemonCard[]> {
     return this.deckCardsSubject.asObservable();
+  }
+
+  getDeckCards(): PokemonCard[] {
+    return this.deckCards;
   }
 
   addCard(card: PokemonCard) {
