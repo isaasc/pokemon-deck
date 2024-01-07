@@ -22,6 +22,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #f7f7ff;
+}
+
 .ig-typography {
   h1,
   h2,
@@ -31,6 +35,13 @@
   h6,
   p {
     margin: 0;
+    color: #222222;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    color: #fff;
+    letter-spacing: 0.5px;
   }
 }
 
@@ -50,4 +61,5 @@ button {
   display: flex;
   align-items: center;
   color: #1d2c5e;
+  justify-content: center;
 }
