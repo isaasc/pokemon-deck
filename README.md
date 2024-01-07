@@ -19,13 +19,23 @@ Este projeto tem como objetivo possibilitar a visualização, criação, remoç�
   - O usuário consegue ver quantos pokemons e cartas de treinador existem no baralho. (atributo supertype);
   - O usuário consegue ver de quantas cores é o baralho, quantos types únicos existem no baralho.
 
+## Detalhes do projeto
+
+- Estou fazendo uso do prettier, então é necessário para alterações possuir o plugin do mesmo;
+- Por ser um projeto pequeno, optei por estruturar as páginas da seguinte maneira:
+  - Pages: Componentes que são páginas;
+  - Components: Todos os demais componentes;
+  - Service: Todos os serviços;
+  - Models: Todas as interfaces, classes e tipos.
+
 ## Tecnologias usadas:
 
-- Angular 16 + Angular cli
-- Infragistics
-- Tailwind
+- Angular 16.0.0 + Angular cli ^16.2.11
+- Infragistics (igniteui-angular) ^16.1.12
+- Angular router ^16.0.0
+- Tailwind ^3.4.1
 - API de Pokémon TCG(https://docs.pokemontcg.io/#api_v1cards_list)
-- Standalone Components
+- Prettier ^3.1.1
 
 ## Instalação:
 
@@ -58,5 +68,11 @@ Este projeto tem como objetivo possibilitar a visualização, criação, remoç�
 ```
   http://localhost:4200/
 ```
+
+## Próximos passos:
+
+- Melhorar funcionamento do loading;
+- Criar testes;
+- Melhorar UI do aviso de já possuir 4 cartas com o mesmo nome;
 
 ### Made By: [Isabella Campos](https://www.linkedin.com/in/isabellaszcampos/)
