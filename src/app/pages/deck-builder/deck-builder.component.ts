@@ -15,11 +15,12 @@ import {
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { DeckInformationComponent } from 'src/app/components/deck-information/deck-information.component';
 import { DeckForm } from 'src/app/models/deck-form.type';
-import { PokemonCard } from 'src/app/models/pokemon-card.interface';
 import { ResponseSupertypes } from 'src/app/models/supertypes.interface';
-import { CardService, CardsParams } from 'src/app/services/card.service';
-import { DeckService } from 'src/app/services/deck.service';
+import { TcgCardsParams } from 'src/app/models/tcg-card-params.type';
+import { TcgCard } from 'src/app/models/tcg-card.interface';
+import { DeckStorageService } from 'src/app/services/deck-storage.service';
 import { SupertypesService } from 'src/app/services/supertypes.service';
+import { TcgCardService } from 'src/app/services/tcg-card.service';
 import { CardListComponent } from '../../components/card-list/card-list.component';
 import { DeckBuilderDetailsService } from '../../services/deck-builder-details.service';
 import { Deck } from './../../models/deck.interface';
@@ -47,40 +48,47 @@ import { Deck } from './../../models/deck.interface';
 })
 export class DeckBuilderComponent implements OnInit, OnDestroy {
   subscription = new Subject();
-  allCards$!: Observable<PokemonCard[]>;
+  tcgCards: TcgCard[] = [];
   isDeckInvalid$!: Observable<boolean>;
   cardSupertype$!: Observable<ResponseSupertypes>;
   isDeckInvalid!: boolean;
   deckForm!: FormGroup<DeckForm>;
-  cardParams: CardsParams = {
+  cardParams: TcgCardsParams = {
     page: 1,
   };
 
   deckId?: string;
-  deckCards: PokemonCard[] = [];
+  deckCards: TcgCard[] = [];
   deck?: Deck;
 
   constructor(
-    private cardService: CardService,
-    private deckService: DeckService,
+    private cardService: TcgCardService,
+    private deckService: DeckStorageService,
     private deckDetailsService: DeckBuilderDetailsService,
     private router: Router,
     private fb: FormBuilder,
     private supertypesService: SupertypesService,
     private route: ActivatedRoute
   ) {
-    this.route.paramMap.subscribe(param => (this.deckId = param.get('id') as string));
+    this.route.paramMap
+      .pipe(takeUntil(this.subscription))
+      .subscribe(param => (this.deckId = param.get('id') as string));
     if (this.deckId) {
       this.deck = this.deckService.getDeckById(this.deckId);
-      this.deckDetailsService.setDeckBuilderCards(this.deck.cards);
-      this.deckCards = this.deckDetailsService.getDeckBuilderCards();
+      this.deckCards = this.deck.cards;
     }
     this.cardSupertype$ = this.supertypesService.getAllSupertypes();
-    this.allCards$ = this.cardService.getAllCards(this.cardParams);
+    this.cardService
+      .getAllTcgCards(this.cardParams)
+      .pipe(takeUntil(this.subscription))
+      .subscribe(tcgCards => (this.tcgCards = tcgCards));
   }
 
   ngOnInit(): void {
-    this.deckDetailsService.getDeckBuilderCardsObservable().subscribe(cards => (this.deckCards = cards));
+    this.deckDetailsService
+      .getDeckBuilderCardsObservable()
+      .pipe(takeUntil(this.subscription))
+      .subscribe(cards => (this.deckCards = cards));
 
     this.deckDetailsService
       .isDeckBuilderInvalid()
@@ -92,17 +100,8 @@ export class DeckBuilderComponent implements OnInit, OnDestroy {
     });
   }
 
-  sendFilterSupertype(changeValue: ISelectionEventArgs): void {
-    this.cardParams.supertype = changeValue.newSelection.value;
-    this.allCards$ = this.cardService.getAllCards(this.cardParams);
-  }
-
-  receiveDataType(value: string): void {
-    this.cardParams.type = value;
-  }
-
   handleSaveDeckBuilder(): void {
-    const selectedCards: PokemonCard[] = this.deckDetailsService.getDeckBuilderCards();
+    const selectedCards: TcgCard[] = this.deckDetailsService.getDeckBuilderCards();
     if (this.deck && this.deckId) {
       this.deckService.updateDeckById(this.deckId, { name: this.deckForm.getRawValue().name!, cards: selectedCards });
     } else {
@@ -112,14 +111,28 @@ export class DeckBuilderComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/list');
   }
 
+  loadCardBySupertypeFilter(changeValue: ISelectionEventArgs): void {
+    this.cardParams.supertype = changeValue.newSelection.value;
+    this.cardService
+      .getAllTcgCards(this.cardParams)
+      .pipe(takeUntil(this.subscription))
+      .subscribe(tcgCards => (this.tcgCards = tcgCards));
+  }
+
   loadCardsNextPage(): void {
-    this.cardParams.page = this.cardParams.page + 1;
-    this.allCards$ = this.cardService.getAllCards(this.cardParams);
+    this.loadCards(this.cardParams.page + 1);
   }
 
   loadCardsPreviousPage(): void {
-    this.cardParams.page = this.cardParams.page - 1;
-    this.allCards$ = this.cardService.getAllCards(this.cardParams);
+    this.loadCards(this.cardParams.page - 1);
+  }
+
+  loadCards(page: number): void {
+    this.cardParams.page = page;
+    this.cardService
+      .getAllTcgCards(this.cardParams)
+      .pipe(takeUntil(this.subscription))
+      .subscribe(tcgCards => (this.tcgCards = tcgCards));
   }
 
   ngOnDestroy(): void {
