@@ -2,13 +2,23 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { IGX_DIALOG_DIRECTIVES, IgxButtonModule, IgxInputGroupModule, IgxTooltipModule } from 'igniteui-angular';
+import {
+  IGX_DIALOG_DIRECTIVES,
+  ISelectionEventArgs,
+  IgxButtonModule,
+  IgxInputGroupModule,
+  IgxSelectComponent,
+  IgxSelectItemComponent,
+  IgxTooltipModule,
+} from 'igniteui-angular';
 import { Observable } from 'rxjs';
 import { DeckBuilderComponent } from 'src/app/components/deck-builder/deck-builder.component';
 import { DeckForm } from 'src/app/models/deck-form.type';
 import { PokemonCard } from 'src/app/models/pokemon-card.interface';
+import { ResponseSupertypes } from 'src/app/models/supertypes.interface';
 import { CardService, CardsParams } from 'src/app/services/card.service';
 import { DeckService } from 'src/app/services/deck.service';
+import { SupertypesService } from 'src/app/services/supertypes.service';
 import { CardListComponent } from '../../components/card-list/card-list.component';
 import { DeckSearchAndFiltersComponent } from '../../components/deck-search-and-filters/deck-search-and-filters.component';
 import { DeckDetailsService } from '../deck-details/deck-details.service';
@@ -30,11 +40,14 @@ import { DeckDetailsService } from '../deck-details/deck-details.service';
     CommonModule,
     RouterModule,
     IgxTooltipModule,
+    IgxSelectComponent,
+    IgxSelectItemComponent,
   ],
 })
 export class DeckCreateComponent implements OnInit {
   allCards$!: Observable<PokemonCard[]>;
   isDeckInvalid$!: Observable<boolean>;
+  cardSupertype$!: Observable<ResponseSupertypes>;
   isDeckInvalid!: boolean;
   deckForm!: FormGroup<DeckForm>;
   cardParams: CardsParams = {
@@ -46,8 +59,10 @@ export class DeckCreateComponent implements OnInit {
     private deckService: DeckService,
     private deckDetailsService: DeckDetailsService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private supertypesService: SupertypesService
   ) {
+    this.cardSupertype$ = this.supertypesService.getAllSupertypes();
     this.allCards$ = this.cardService.getAllCards(this.cardParams);
   }
 
@@ -59,8 +74,9 @@ export class DeckCreateComponent implements OnInit {
     });
   }
 
-  receiveDataSupertype(value: string): void {
-    this.cardParams.supertype = value;
+  sendFilterSupertype(changeValue: ISelectionEventArgs): void {
+    this.cardParams.supertype = changeValue.newSelection.value;
+    this.allCards$ = this.cardService.getAllCards(this.cardParams);
   }
 
   receiveDataType(value: string): void {

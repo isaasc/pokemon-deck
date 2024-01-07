@@ -14,19 +14,14 @@ export type CardsParams = {
 })
 export class CardService {
   private baseURL: string = 'https://api.pokemontcg.io/v2';
-  // private httpOptions = {
-  //   headers: new HttpHeaders({
-  //     'X-Api-Key': '',
-  //     'Content-Type': 'application/json',
-  //   }),
-  // };
+
   constructor(private http: HttpClient) {}
 
   getAllCards(cardsParams: CardsParams): Observable<PokemonCard[]> {
     const params = this.buildParams(cardsParams);
 
     const url = `${this.baseURL}/cards`;
-    // return this.http.get<ResponsePokemonCard>(url, { headers: this.httpOptions.headers, params }).pipe(
+
     return this.http.get<ResponsePokemonCard>(url, { params }).pipe(
       map(response => response.data),
       catchError(this.handleError)
