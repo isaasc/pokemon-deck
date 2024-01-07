@@ -22,6 +22,7 @@ import { DeckService } from 'src/app/services/deck.service';
 import { SupertypesService } from 'src/app/services/supertypes.service';
 import { CardListComponent } from '../../components/card-list/card-list.component';
 import { DeckBuilderDetailsService } from '../../services/deck-builder-details.service';
+import { Deck } from './../../models/deck.interface';
 
 @Component({
   selector: 'app-deck-builder',
@@ -57,6 +58,7 @@ export class DeckBuilderComponent implements OnInit, OnDestroy {
 
   deckId?: string;
   deckCards: PokemonCard[] = [];
+  deck?: Deck;
 
   constructor(
     private cardService: CardService,
@@ -69,7 +71,8 @@ export class DeckBuilderComponent implements OnInit, OnDestroy {
   ) {
     this.route.paramMap.subscribe(param => (this.deckId = param.get('id') as string));
     if (this.deckId) {
-      this.deckDetailsService.setDeckBuilderCards(this.deckService.getDeckById(this.deckId).cards);
+      this.deck = this.deckService.getDeckById(this.deckId);
+      this.deckDetailsService.setDeckBuilderCards(this.deck.cards);
       this.deckCards = this.deckDetailsService.getDeckBuilderCards();
     }
     this.cardSupertype$ = this.supertypesService.getAllSupertypes();
@@ -85,7 +88,7 @@ export class DeckBuilderComponent implements OnInit, OnDestroy {
       .subscribe(result => (this.isDeckInvalid = result));
 
     this.deckForm = this.fb.group({
-      name: ['', { nonNullable: true, validators: [Validators.required] }],
+      name: [this.deck?.name ?? '', { nonNullable: true, validators: [Validators.required] }],
     });
   }
 
@@ -98,10 +101,14 @@ export class DeckBuilderComponent implements OnInit, OnDestroy {
     this.cardParams.type = value;
   }
 
-  createDeck(): void {
+  handleSaveDeckBuilder(): void {
     const selectedCards: PokemonCard[] = this.deckDetailsService.getDeckBuilderCards();
+    if (this.deck && this.deckId) {
+      this.deckService.updateDeckById(this.deckId, { name: this.deckForm.getRawValue().name!, cards: selectedCards });
+    } else {
+      this.deckService.createDeck({ name: this.deckForm.getRawValue().name!, cards: selectedCards });
+    }
 
-    this.deckService.updateDeck({ name: this.deckForm.getRawValue().name!, cards: selectedCards });
     this.router.navigateByUrl('/list');
   }
 

@@ -28,7 +28,7 @@
 
 <igx-dialog #form [closeOnOutsideSelect]="true">
   <igx-dialog-title>
-    <p>Create Deck</p>
+    <p>Deck Name</p>
   </igx-dialog-title>
 
   <form [formGroup]="deckForm">
@@ -40,6 +40,6 @@
 
   <div igxDialogActions>
     <button igxButton (click)="form.close()">CANCEL</button>
-    <button igxButton type="submit" [disabled]="!deckForm.valid" (click)="createDeck()">CREATE</button>
+    <button igxButton type="submit" [disabled]="!deckForm.valid" (click)="handleSaveDeckBuilder()">SAVE</button>
   </div>
 </igx-dialog>

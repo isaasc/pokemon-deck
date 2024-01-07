@@ -30,7 +30,7 @@ export class DeckService {
     return storedDecks ? (JSON.parse(storedDecks) as Deck[]) : [];
   }
 
-  updateDeck(card: Deck): void {
+  createDeck(card: Deck): void {
     const storedDecks: Deck[] = this.getDecks();
     let newDeckId: string;
     do {
@@ -41,6 +41,15 @@ export class DeckService {
     storedDecks.push(card);
 
     this.storage.setItem(this.key, JSON.stringify(storedDecks));
+    this.emitDeckList(storedDecks);
+  }
+
+  updateDeckById(id: string, newDeck: Deck): void {
+    const storedDecks: Deck[] = this.getDecks();
+
+    const updateDecks = storedDecks.map(deck => (deck.id === id ? { ...deck, ...newDeck } : deck));
+
+    this.storage.setItem(this.key, JSON.stringify(updateDecks));
     this.emitDeckList(storedDecks);
   }
 
