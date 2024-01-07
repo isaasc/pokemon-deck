@@ -22,6 +22,7 @@ Este projeto tem como objetivo possibilitar a visualização, criação, remoç�
 ## Tecnologias usadas:
 
 - Angular 16 + Angular cli
+- Infragistics
 - Tailwind
 - API de Pokémon TCG(https://docs.pokemontcg.io/#api_v1cards_list)
 - Standalone Components
