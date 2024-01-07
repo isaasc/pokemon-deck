@@ -59,10 +59,4 @@ Este projeto tem como objetivo possibilitar a visualização, criação, remoç�
   http://localhost:4200/
 ```
 
-## Rodando os testes
-
-```
-  ng test
-```
-
 ### Made By: [Isabella Campos](https://www.linkedin.com/in/isabellaszcampos/)
