@@ -27,6 +27,12 @@
   </div>
 
   <app-card-list [cards]="tcgCards" class="mt-20"></app-card-list>
+  <ng-container *ngIf="tcgCards.length === 0">
+    <div class="flex flex-col items-center pt-9">
+      <h5 class="pb-4">Loading cards...</h5>
+      <img src="../../../assets/images/load.png" alt="" />
+    </div>
+  </ng-container>
   <div class="flex gap-x-4 justify-center my-8">
     <button (click)="loadCardsPreviousPage()"><igx-icon>chevron_left</igx-icon></button>
     <button (click)="loadCardsNextPage()"><igx-icon class="mr-2">chevron_right</igx-icon></button>
