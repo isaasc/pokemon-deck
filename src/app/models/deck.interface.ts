@@ -1,7 +1,7 @@
-import { PokemonCard } from './pokemon-card.interface';
+import { TcgCard } from './tcg-card.interface';
 
 export interface Deck {
   id?: string;
-  cards: PokemonCard[];
+  cards: TcgCard[];
   name: string;
 }

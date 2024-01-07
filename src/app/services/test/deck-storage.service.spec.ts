@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TypesService } from '../types.service';
+import { DeckStorageService } from '../deck-storage.service';
 
-describe('TypesService', () => {
-  let service: TypesService;
+describe('DeckStorageService', () => {
+  let service: DeckStorageService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TypesService);
+    service = TestBed.inject(DeckStorageService);
   });
 
   it('should be created', () => {

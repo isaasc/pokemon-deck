@@ -5,7 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { CardListComponent } from 'src/app/components/card-list/card-list.component';
 import { DeckCardsInformationComponent } from 'src/app/components/deck-cards-information/deck-cards-information.component';
 import { Deck } from 'src/app/models/deck.interface';
-import { DeckService } from 'src/app/services/deck.service';
+import { DeckStorageService } from 'src/app/services/deck-storage.service';
 
 @Component({
   selector: 'app-deck-details',
@@ -21,7 +21,7 @@ export class DeckDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private deckService: DeckService
+    private deckService: DeckStorageService
   ) {}
 
   ngOnInit(): void {

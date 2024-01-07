@@ -2,13 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import { Deck } from '../models/deck.interface';
-import { Supertypes } from '../models/enums/supertype.enum';
-import { PokemonCard } from '../models/pokemon-card.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DeckService {
+export class DeckStorageService {
   private storage!: Storage;
   private key = 'card';
   private deckListSubject = new Subject<Deck[]>();
@@ -59,25 +57,7 @@ export class DeckService {
     this.emitDeckList(decks);
   }
 
-  cardNumberOfSupertype(cards: PokemonCard[], supertype: Supertypes) {
-    return cards.filter(card => card.supertype === supertype).length;
-  }
-
-  countUniqueTypes(cards: PokemonCard[]): number {
-    const uniqueTypes = new Set<string>();
-
-    cards.forEach(card => {
-      if (card.types && card.types.length > 0) {
-        card.types.forEach(type => {
-          uniqueTypes.add(type);
-        });
-      }
-    });
-
-    return uniqueTypes.size;
-  }
-
-  isDeckIdUnique(newDeckId: string, existingDecks: Deck[]): boolean {
+  private isDeckIdUnique(newDeckId: string, existingDecks: Deck[]): boolean {
     return !existingDecks.some(deck => deck.id === newDeckId);
   }
 

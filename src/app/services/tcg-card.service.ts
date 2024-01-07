@@ -1,28 +1,23 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { PokemonCard, ResponsePokemonCard } from '../models/pokemon-card.interface';
-
-export type CardsParams = {
-  page: number;
-  supertype?: string;
-  type?: string;
-};
+import { TcgCardsParams } from '../models/tcg-card-params.type';
+import { ResponseTcgCard, TcgCard } from '../models/tcg-card.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CardService {
+export class TcgCardService {
   private baseURL: string = 'https://api.pokemontcg.io/v2';
 
   constructor(private http: HttpClient) {}
 
-  getAllCards(cardsParams: CardsParams): Observable<PokemonCard[]> {
+  getAllTcgCards(cardsParams: TcgCardsParams): Observable<TcgCard[]> {
     const params = this.buildParams(cardsParams);
 
     const url = `${this.baseURL}/cards`;
 
-    return this.http.get<ResponsePokemonCard>(url, { params }).pipe(
+    return this.http.get<ResponseTcgCard>(url, { params }).pipe(
       map(response => response.data),
       catchError(this.handleError)
     );
@@ -33,7 +28,7 @@ export class CardService {
     return throwError(() => 'Something went wrong; Please try again later.');
   }
 
-  private buildParams(cardsParams: CardsParams): HttpParams {
+  private buildParams(cardsParams: TcgCardsParams): HttpParams {
     return new HttpParams()
       .set('orderBy', 'name')
       .set('pageSize', '24')
@@ -42,7 +37,7 @@ export class CardService {
       .set('q', this.buildQueryParam(cardsParams));
   }
 
-  private buildQueryParam(cardsParams: CardsParams): string {
+  private buildQueryParam(cardsParams: TcgCardsParams): string {
     let queryParam = '';
 
     queryParam += cardsParams.supertype ? `supertype:${cardsParams.supertype}` : '';

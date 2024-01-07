@@ -5,7 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { CardListComponent } from 'src/app/components/card-list/card-list.component';
 import { DeckCardComponent } from 'src/app/components/deck-card/deck-card.component';
 import { Deck } from 'src/app/models/deck.interface';
-import { DeckService } from './../../services/deck.service';
+import { DeckStorageService } from '../../services/deck-storage.service';
 
 @Component({
   selector: 'app-deck-list',
@@ -20,7 +20,7 @@ export class DeckListComponent implements OnInit, OnDestroy {
   decks!: Deck[];
   subscription = new Subject();
 
-  constructor(private deckService: DeckService) {
+  constructor(private deckService: DeckStorageService) {
     this.decks = this.deckService.getDecks();
   }
 

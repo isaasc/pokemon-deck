@@ -8,7 +8,7 @@ import {
   IgxCardHeaderTitleDirective,
   IgxCardMediaDirective,
 } from 'igniteui-angular';
-import { PokemonCard } from 'src/app/models/pokemon-card.interface';
+import { TcgCard } from 'src/app/models/tcg-card.interface';
 
 @Component({
   selector: 'app-mini-card',
@@ -26,5 +26,5 @@ import { PokemonCard } from 'src/app/models/pokemon-card.interface';
   ],
 })
 export class MiniCardComponent {
-  @Input() card!: PokemonCard;
+  @Input() card!: TcgCard;
 }

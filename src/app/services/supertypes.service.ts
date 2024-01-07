@@ -15,7 +15,7 @@ export class SupertypesService {
   }
 
   handleError(error: any): Observable<never> {
-    console.error('An error occurred:', error);
-    return throwError(() => 'Something went wrong; Please try again later.');
+    console.error('An error occurred on get all supertypes:', error);
+    return throwError(() => 'Something went wrong on get all supertypes; Please try again later.');
   }
 }

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DeckService } from '../deck.service';
+import { TcgCardService } from '../tcg-card.service';
 
-describe('DeckService', () => {
-  let service: DeckService;
+describe('CardService', () => {
+  let service: TcgCardService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DeckService);
+    service = TestBed.inject(TcgCardService);
   });
 
   it('should be created', () => {

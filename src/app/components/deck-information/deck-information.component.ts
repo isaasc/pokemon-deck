@@ -2,7 +2,7 @@ import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IGX_EXPANSION_PANEL_DIRECTIVES } from 'igniteui-angular';
-import { PokemonCard } from 'src/app/models/pokemon-card.interface';
+import { TcgCard } from 'src/app/models/tcg-card.interface';
 import { CardListComponent } from '../card-list/card-list.component';
 import { DeckCardsInformationComponent } from '../deck-cards-information/deck-cards-information.component';
 
@@ -21,5 +21,5 @@ import { DeckCardsInformationComponent } from '../deck-cards-information/deck-ca
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeckInformationComponent {
-  @Input() deckCards!: PokemonCard[];
+  @Input() deckCards!: TcgCard[];
 }

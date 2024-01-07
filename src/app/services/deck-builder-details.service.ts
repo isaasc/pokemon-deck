@@ -1,31 +1,26 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { PokemonCard } from 'src/app/models/pokemon-card.interface';
+import { TcgCard } from 'src/app/models/tcg-card.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DeckBuilderDetailsService {
-  private deckBuilderCards: PokemonCard[] = [];
-  private deckBuilderCardsObservable = new Subject<PokemonCard[]>();
+  private deckBuilderCards: TcgCard[] = [];
+  private deckBuilderCardsObservable = new Subject<TcgCard[]>();
   private deckBuilderInvalidObservable = new BehaviorSubject<boolean>(true);
 
   constructor() {}
 
-  getDeckBuilderCardsObservable(): Observable<PokemonCard[]> {
+  getDeckBuilderCardsObservable(): Observable<TcgCard[]> {
     return this.deckBuilderCardsObservable.asObservable();
   }
 
-  setDeckBuilderCards(cards: PokemonCard[]): void {
-    this.deckBuilderCards = cards;
-    this.emitDeckBuilderCardsChange();
-  }
-
-  getDeckBuilderCards(): PokemonCard[] {
+  getDeckBuilderCards(): TcgCard[] {
     return this.deckBuilderCards;
   }
 
-  addCardOnDeckBuilder(card: PokemonCard): void {
+  addCardOnDeckBuilder(card: TcgCard): void {
     if (this.hasMoreThanFourCardsWithSameName(this.getDeckBuilderCards(), card.name)) {
       alert('Seu Deck já possui outras 4 cartas com esse mesmo nome');
       return;
@@ -66,7 +61,7 @@ export class DeckBuilderDetailsService {
     );
   }
 
-  private hasMoreThanFourCardsWithSameName(cards: PokemonCard[], targetName: string): boolean {
+  private hasMoreThanFourCardsWithSameName(cards: TcgCard[], targetName: string): boolean {
     const cardsWithSameName = cards.filter(card => card.name === targetName);
 
     return cardsWithSameName.length >= 4;

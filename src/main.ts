@@ -20,7 +20,7 @@ import {
 } from 'igniteui-angular';
 import { AppComponent } from './app/app.component';
 import { APP_ROUTES } from './app/app.routes';
-import { CardService } from './app/services/card.service';
+import { TcgCardService } from './app/services/tcg-card.service';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -40,7 +40,7 @@ bootstrapApplication(AppComponent, {
       IgxExpansionPanelModule,
       IgxLayoutModule
     ),
-    CardService,
+    TcgCardService,
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(APP_ROUTES),

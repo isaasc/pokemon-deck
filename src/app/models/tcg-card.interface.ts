@@ -1,8 +1,8 @@
-export interface ResponsePokemonCard {
-  data: PokemonCard[];
+export interface ResponseTcgCard {
+  data: TcgCard[];
 }
 
-export interface PokemonCard {
+export interface TcgCard {
   id: string;
   name: string;
   supertype: string;
@@ -11,6 +11,6 @@ export interface PokemonCard {
 }
 
 interface ImageSizes {
-  small: string;
   large: string;
+  small: string;
 }
