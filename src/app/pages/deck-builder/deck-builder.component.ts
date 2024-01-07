@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {
   IGX_DIALOG_DIRECTIVES,
   ISelectionEventArgs,
@@ -24,9 +24,9 @@ import { CardListComponent } from '../../components/card-list/card-list.componen
 import { DeckBuilderDetailsService } from '../../services/deck-builder-details.service';
 
 @Component({
-  selector: 'app-deck-create',
-  templateUrl: './deck-create.component.html',
-  styleUrls: ['./deck-create.component.scss'],
+  selector: 'app-deck-builder',
+  templateUrl: './deck-builder.component.html',
+  styleUrls: ['./deck-builder.component.scss'],
   standalone: true,
   imports: [
     FormsModule,
@@ -44,7 +44,7 @@ import { DeckBuilderDetailsService } from '../../services/deck-builder-details.s
     IgxIconModule,
   ],
 })
-export class DeckCreateComponent implements OnInit, OnDestroy {
+export class DeckBuilderComponent implements OnInit, OnDestroy {
   subscription = new Subject();
   allCards$!: Observable<PokemonCard[]>;
   isDeckInvalid$!: Observable<boolean>;
@@ -55,19 +55,30 @@ export class DeckCreateComponent implements OnInit, OnDestroy {
     page: 1,
   };
 
+  deckId?: string;
+  deckCards: PokemonCard[] = [];
+
   constructor(
     private cardService: CardService,
     private deckService: DeckService,
     private deckDetailsService: DeckBuilderDetailsService,
     private router: Router,
     private fb: FormBuilder,
-    private supertypesService: SupertypesService
+    private supertypesService: SupertypesService,
+    private route: ActivatedRoute
   ) {
+    this.route.paramMap.subscribe(param => (this.deckId = param.get('id') as string));
+    if (this.deckId) {
+      this.deckDetailsService.setDeckBuilderCards(this.deckService.getDeckById(this.deckId).cards);
+      this.deckCards = this.deckDetailsService.getDeckBuilderCards();
+    }
     this.cardSupertype$ = this.supertypesService.getAllSupertypes();
     this.allCards$ = this.cardService.getAllCards(this.cardParams);
   }
 
   ngOnInit(): void {
+    this.deckDetailsService.getDeckBuilderCardsObservable().subscribe(cards => (this.deckCards = cards));
+
     this.deckDetailsService
       .isDeckBuilderInvalid()
       .pipe(takeUntil(this.subscription))
