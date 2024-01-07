@@ -49,6 +49,11 @@ export class DeckBuilderDetailsService {
     return this.deckBuilderInvalidObservable.asObservable();
   }
 
+  setDeckBuilderCards(cards: TcgCard[]): void {
+    this.deckBuilderCards = cards;
+    this.emitDeckBuilderCardsChange();
+  }
+
   private emitDeckBuilderCardsChange(): void {
     this.deckBuilderCardsObservable.next([...this.deckBuilderCards]);
   }
