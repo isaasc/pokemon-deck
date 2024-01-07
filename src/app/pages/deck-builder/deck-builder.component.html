@@ -13,7 +13,9 @@
       </igx-select-item>
     </igx-select>
 
-    <button class="save-button" (click)="form.open()" [igxTooltipTarget]="locationTooltip">Save</button>
+    <button class="save-button" (click)="form.open()" [igxTooltipTarget]="locationTooltip" [disabled]="isDeckInvalid">
+      Save
+    </button>
     <div #locationTooltip="tooltip" igxTooltip>
       {{ isDeckInvalid ? 'Number of cards needs to be between 24 and 60' : 'Save' }}
     </div>
