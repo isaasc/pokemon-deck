@@ -1,27 +1,67 @@
 # PokemonDeck
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
+Este projeto tem como objetivo possibilitar a visualização, criação, remoção de decks de cartas pokémon.
 
-## Development server
+## Funcionalidades
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- O usuário pode ver seus baralhos;
+- O usuário pode criar um novo baralho, sendo que:
+  - O usuário pode filtrar as cartas pelo supertype;
+  - O usuário pode colocar um nome no seu baralho;
+  - O usuário pode inserir cartas no baralho;
+  - O baralho tem que ter no mínimo 24 cartas e no máximo 60;
+  - Só podem ter 4 cartas com o mesmo nome, no baralho. (Nome não id);
+  - Após salvar o baralho voltamos para a página de lista de baralhos atualizada;
+  - O baralho será salvo apenas em memória.
+- O usuário pode remover um baralho;
+- O usuário pode editar um baralho;
+- O usuário pode clicar num baralho para visualizar seus detalhes, sendo que:
+  - O usuário consegue ver quantos pokemons e cartas de treinador existem no baralho. (atributo supertype);
+  - O usuário consegue ver de quantas cores é o baralho, quantos types únicos existem no baralho.
 
-## Code scaffolding
+## Tecnologias usadas:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Angular 16 + Angular cli
+- Tailwind
+- API de Pokémon TCG(https://docs.pokemontcg.io/#api_v1cards_list)
+- Standalone Components
 
-## Build
+## Instalação:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. **Clone o repositório**
 
-## Running unit tests
+```
+  git clone https://github.com/isaasc/pokemon-deck.git
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. **Navegue até a pasta do projeto**
 
-## Running end-to-end tests
+```
+  cd pokemon-deck
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3. **Instale as dependências**
 
-## Further help
+```
+  npm install
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+4. **Inicie a aplicação**
+
+```
+  npm start
+```
+
+5. **Navegue até a url abaixo e seja feliz**
+
+```
+  http://localhost:4200/
+```
+
+## Rodando os testes
+
+```
+  ng test
+```
+
+### Made By: [Isabella Campos](https://www.linkedin.com/in/isabellaszcampos/)
