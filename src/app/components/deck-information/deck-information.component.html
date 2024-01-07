@@ -1,27 +1,10 @@
-<section class="flex items-center justify-between">
-  <div class="flex items-center flex-wrap">
-    <div class="flex flex-col items-center">
-      <img class="w-5/12" src="../../../assets/images/pikachu64.png" alt="pikachu icon" />
-      <p>Pokémon</p>
-      <h5>{{ numberOfPokemons }}</h5>
-    </div>
-    <div class="flex flex-col items-center">
-      <img class="w-5/12" src="../../../assets/images/trainer64.png" alt="trainer icon" />
-      <p>Trainer</p>
-      <h5>{{ numberOfTrainers }}</h5>
-    </div>
-    <div class="flex flex-col items-center">
-      <img class="w-5/12" src="../../../assets/images/energy64.png" alt="energy icon" />
-      <p>Energy</p>
-      <h5 class="text-center">{{ numberOfEnergies }}</h5>
-    </div>
-    <div class="flex flex-col items-center">
-      <img class="w-5/12" src="../../../assets/images/colors64.png" alt="colors icon" />
-      <p>Color</p>
-      <h5 class="text-center">{{ numberOfColors }}</h5>
-    </div>
-  </div>
-  <div class="button-sample flex gap-x-4">
-    <h4>{{ numberOfPokemons + numberOfTrainers + numberOfEnergies }}/60</h4>
-  </div>
-</section>
+<igx-expansion-panel class="deck-details">
+  <igx-expansion-panel-header [iconPosition]="'right'" class="test-header">
+    <igx-expansion-panel-title>
+      <app-deck-cards-information [cards]="deckCards"></app-deck-cards-information>
+    </igx-expansion-panel-title>
+  </igx-expansion-panel-header>
+  <igx-expansion-panel-body *ngIf="deckCards">
+    <app-card-list [deckCards]="deckCards" [isMiniCard]="true"></app-card-list>
+  </igx-expansion-panel-body>
+</igx-expansion-panel>

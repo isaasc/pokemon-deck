@@ -2,13 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DeckInformationComponent } from './deck-information.component';
 
-describe('DeckInformationComponent', () => {
+describe('DeckBuilderComponent', () => {
   let component: DeckInformationComponent;
   let fixture: ComponentFixture<DeckInformationComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DeckInformationComponent]
+      imports: [DeckInformationComponent],
     });
     fixture = TestBed.createComponent(DeckInformationComponent);
     component = fixture.componentInstance;
