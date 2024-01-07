@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SupertypesService } from './supertypes.service';
+import { CardService } from '../card.service';
 
-describe('SupertypesService', () => {
-  let service: SupertypesService;
+describe('CardService', () => {
+  let service: CardService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SupertypesService);
+    service = TestBed.inject(CardService);
   });
 
   it('should be created', () => {
