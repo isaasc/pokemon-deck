@@ -1,33 +1,36 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
+import { Deck } from 'src/app/models/deck.interface';
 import { PokemonCard } from 'src/app/models/pokemon-card.interface';
-import { DeckDetailsService } from '../../pages/deck-details/deck-details.service';
+import { DeckBuilderDetailsService } from '../../services/deck-builder-details.service';
 import { CardComponent } from '../card/card.component';
+import { DeckCardComponent } from '../deck-card/deck-card.component';
 import { MiniCardComponent } from '../mini-card/mini-card.component';
 
 @Component({
   selector: 'app-card-list',
   templateUrl: './card-list.component.html',
   styleUrls: ['./card-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, NgFor, MiniCardComponent, CardComponent, AsyncPipe],
+  imports: [NgIf, NgFor, NgTemplateOutlet, AsyncPipe, MiniCardComponent, CardComponent, DeckCardComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardListComponent {
-  @Input() allCards$!: Observable<PokemonCard[]>;
+  @Input() allCards$?: Observable<PokemonCard[]>;
   @Input() isMiniCard: boolean = false;
   @Input() deckCards?: PokemonCard[];
+  @Input() decks?: Deck[];
 
-  constructor(private deckDetailsService: DeckDetailsService) {}
+  constructor(private deckDetailsService: DeckBuilderDetailsService) {}
 
   addCardOnDeck(card: PokemonCard) {
-    this.deckDetailsService.addCard(card);
+    this.deckDetailsService.addCardOnDeckBuilder(card);
   }
 
   removeCardOnDeck(card: PokemonCard) {
-    this.deckDetailsService.removeCard(card.id);
+    this.deckDetailsService.removeCardOfDeckBuilder(card.id);
   }
 
   trackByItems(index: number, pokemonCard: PokemonCard): string {
