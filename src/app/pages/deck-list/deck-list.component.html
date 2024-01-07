@@ -1,11 +1,7 @@
 <section class="mt-28 flex flex-col justify-center gap-4">
   <h2>Decks List</h2>
   <ng-container *ngIf="decks.length !== 0; else addDeck">
-    <div class="flex flex-wrap gap-4 justify-evenly">
-      <ng-container *ngFor="let deck of decks">
-        <app-deck-card [deck]="deck"></app-deck-card>
-      </ng-container>
-    </div>
+    <app-card-list [decks]="decks"></app-card-list>
   </ng-container>
 
   <ng-template #addDeck>
@@ -14,5 +10,3 @@
     </div>
   </ng-template>
 </section>
-
-<app-deck-information></app-deck-information>

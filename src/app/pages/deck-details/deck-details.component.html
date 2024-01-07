@@ -1,5 +1,5 @@
 <section class="mt-28" *ngIf="deck">
   <h2 class="pb-4">{{ '"' + deck.name + '" details' }}</h2>
-  <app-deck-information [deck]="deck"></app-deck-information>
+  <app-deck-cards-information [cards]="deck.cards"></app-deck-cards-information>
   <app-card-list [deckCards]="deck.cards"></app-card-list>
 </section>
