@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import {
@@ -12,8 +12,8 @@ import {
   IgxSelectItemComponent,
   IgxTooltipModule,
 } from 'igniteui-angular';
-import { Observable } from 'rxjs';
-import { DeckBuilderComponent } from 'src/app/components/deck-builder/deck-builder.component';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { DeckInformationComponent } from 'src/app/components/deck-information/deck-information.component';
 import { DeckForm } from 'src/app/models/deck-form.type';
 import { PokemonCard } from 'src/app/models/pokemon-card.interface';
 import { ResponseSupertypes } from 'src/app/models/supertypes.interface';
@@ -21,7 +21,7 @@ import { CardService, CardsParams } from 'src/app/services/card.service';
 import { DeckService } from 'src/app/services/deck.service';
 import { SupertypesService } from 'src/app/services/supertypes.service';
 import { CardListComponent } from '../../components/card-list/card-list.component';
-import { DeckDetailsService } from '../deck-details/deck-details.service';
+import { DeckBuilderDetailsService } from '../../services/deck-builder-details.service';
 
 @Component({
   selector: 'app-deck-create',
@@ -33,7 +33,7 @@ import { DeckDetailsService } from '../deck-details/deck-details.service';
     IgxInputGroupModule,
     IgxButtonModule,
     ReactiveFormsModule,
-    DeckBuilderComponent,
+    DeckInformationComponent,
     CardListComponent,
     IGX_DIALOG_DIRECTIVES,
     CommonModule,
@@ -44,7 +44,8 @@ import { DeckDetailsService } from '../deck-details/deck-details.service';
     IgxIconModule,
   ],
 })
-export class DeckCreateComponent implements OnInit {
+export class DeckCreateComponent implements OnInit, OnDestroy {
+  subscription = new Subject();
   allCards$!: Observable<PokemonCard[]>;
   isDeckInvalid$!: Observable<boolean>;
   cardSupertype$!: Observable<ResponseSupertypes>;
@@ -57,7 +58,7 @@ export class DeckCreateComponent implements OnInit {
   constructor(
     private cardService: CardService,
     private deckService: DeckService,
-    private deckDetailsService: DeckDetailsService,
+    private deckDetailsService: DeckBuilderDetailsService,
     private router: Router,
     private fb: FormBuilder,
     private supertypesService: SupertypesService
@@ -67,7 +68,10 @@ export class DeckCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.deckDetailsService.isDeckInvalid().subscribe(result => (this.isDeckInvalid = result));
+    this.deckDetailsService
+      .isDeckBuilderInvalid()
+      .pipe(takeUntil(this.subscription))
+      .subscribe(result => (this.isDeckInvalid = result));
 
     this.deckForm = this.fb.group({
       name: ['', { nonNullable: true, validators: [Validators.required] }],
@@ -84,7 +88,7 @@ export class DeckCreateComponent implements OnInit {
   }
 
   createDeck(): void {
-    const selectedCards: PokemonCard[] = this.deckDetailsService.getDeckCards();
+    const selectedCards: PokemonCard[] = this.deckDetailsService.getDeckBuilderCards();
 
     this.deckService.updateDeck({ name: this.deckForm.getRawValue().name!, cards: selectedCards });
     this.router.navigateByUrl('/list');
@@ -98,5 +102,10 @@ export class DeckCreateComponent implements OnInit {
   loadCardsPreviousPage(): void {
     this.cardParams.page = this.cardParams.page - 1;
     this.allCards$ = this.cardService.getAllCards(this.cardParams);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.deckDetailsService.clearCardOfDeckBuilder();
   }
 }
