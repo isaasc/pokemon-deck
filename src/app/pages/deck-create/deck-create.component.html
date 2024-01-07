@@ -20,7 +20,10 @@
   </div>
 
   <app-card-list [allCards$]="allCards$" class="mt-20"></app-card-list>
-  <button class="save-button my-6">Load More Cards</button>
+  <div class="flex gap-x-4 justify-center my-8">
+    <button (click)="loadCardsPreviousPage()"><igx-icon>chevron_left</igx-icon></button>
+    <button (click)="loadCardsNextPage()"><igx-icon class="mr-2">chevron_right</igx-icon></button>
+  </div>
 </section>
 
 <igx-dialog #form [closeOnOutsideSelect]="true">

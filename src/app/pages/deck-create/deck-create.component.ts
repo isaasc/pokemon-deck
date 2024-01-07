@@ -6,6 +6,7 @@ import {
   IGX_DIALOG_DIRECTIVES,
   ISelectionEventArgs,
   IgxButtonModule,
+  IgxIconModule,
   IgxInputGroupModule,
   IgxSelectComponent,
   IgxSelectItemComponent,
@@ -20,7 +21,6 @@ import { CardService, CardsParams } from 'src/app/services/card.service';
 import { DeckService } from 'src/app/services/deck.service';
 import { SupertypesService } from 'src/app/services/supertypes.service';
 import { CardListComponent } from '../../components/card-list/card-list.component';
-import { DeckSearchAndFiltersComponent } from '../../components/deck-search-and-filters/deck-search-and-filters.component';
 import { DeckDetailsService } from '../deck-details/deck-details.service';
 
 @Component({
@@ -34,7 +34,6 @@ import { DeckDetailsService } from '../deck-details/deck-details.service';
     IgxButtonModule,
     ReactiveFormsModule,
     DeckBuilderComponent,
-    DeckSearchAndFiltersComponent,
     CardListComponent,
     IGX_DIALOG_DIRECTIVES,
     CommonModule,
@@ -42,6 +41,7 @@ import { DeckDetailsService } from '../deck-details/deck-details.service';
     IgxTooltipModule,
     IgxSelectComponent,
     IgxSelectItemComponent,
+    IgxIconModule,
   ],
 })
 export class DeckCreateComponent implements OnInit {
@@ -88,5 +88,15 @@ export class DeckCreateComponent implements OnInit {
 
     this.deckService.updateDeck({ name: this.deckForm.getRawValue().name!, cards: selectedCards });
     this.router.navigateByUrl('/list');
+  }
+
+  loadCardsNextPage(): void {
+    this.cardParams.page = this.cardParams.page + 1;
+    this.allCards$ = this.cardService.getAllCards(this.cardParams);
+  }
+
+  loadCardsPreviousPage(): void {
+    this.cardParams.page = this.cardParams.page - 1;
+    this.allCards$ = this.cardService.getAllCards(this.cardParams);
   }
 }
