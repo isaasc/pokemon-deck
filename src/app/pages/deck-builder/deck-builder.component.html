@@ -13,7 +13,12 @@
       </igx-select-item>
     </igx-select>
 
-    <button class="save-button" (click)="form.open()" [igxTooltipTarget]="locationTooltip" [disabled]="isDeckInvalid">
+    <button
+      igxButton="outlined"
+      class="save-button"
+      (click)="form.open()"
+      [igxTooltipTarget]="locationTooltip"
+      [disabled]="isDeckInvalid">
       Save
     </button>
     <div #locationTooltip="tooltip" igxTooltip>

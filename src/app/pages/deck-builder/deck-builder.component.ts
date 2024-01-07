@@ -75,6 +75,7 @@ export class DeckBuilderComponent implements OnInit, OnDestroy {
       .subscribe(param => (this.deckId = param.get('id') as string));
     if (this.deckId) {
       this.deck = this.deckService.getDeckById(this.deckId);
+      this.deckDetailsService.setDeckBuilderCards(this.deck.cards);
       this.deckCards = this.deck.cards;
     }
     this.cardSupertype$ = this.supertypesService.getAllSupertypes();

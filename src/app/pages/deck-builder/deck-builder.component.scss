@@ -2,10 +2,12 @@
   grid-template-columns: 3fr 1fr;
 }
 
-.save-button {
+[igxButton='outlined'],
+.igx-button--outlined {
   height: auto;
   width: auto;
   font-size: 1.5rem;
-  background-color: #1d2c5e;
-  color: #fff;
+  --border-color: #1d2c5e;
+  --hover-border-color: #1d2c5e;
+  --hover-background: #1d2c5e3a;
 }

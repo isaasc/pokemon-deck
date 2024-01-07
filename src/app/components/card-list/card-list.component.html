@@ -4,7 +4,13 @@
       <app-mini-card (click)="removeCardOnDeck(card)" [card]="card"></app-mini-card>
     </ng-container>
     <ng-template #normalCards>
-      <app-card (click)="addCardOnDeck(card)" [cardImage]="card.images.small"></app-card>
+      <ng-container *ngIf="isDetailsMode; else createOrEditMode">
+        <app-card [cardImage]="card.images.small"></app-card
+      ></ng-container>
+
+      <ng-template #createOrEditMode>
+        <app-card (click)="addCardOnDeck(card)" [cardImage]="card.images.small"></app-card>
+      </ng-template>
     </ng-template>
   </ng-container>
 </section>

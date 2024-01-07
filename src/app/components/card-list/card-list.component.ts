@@ -20,6 +20,7 @@ export class CardListComponent {
   @Input() cards?: TcgCard[];
   @Input() decks?: Deck[];
   @Input() isMiniCard: boolean = false;
+  @Input() isDetailsMode: boolean = false;
 
   constructor(private deckDetailsService: DeckBuilderDetailsService) {}
 
