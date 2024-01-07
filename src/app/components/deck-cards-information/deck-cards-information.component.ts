@@ -11,7 +11,7 @@ import { DeckService } from 'src/app/services/deck.service';
   templateUrl: './deck-cards-information.component.html',
   styleUrls: ['./deck-cards-information.component.scss'],
 })
-export class DeckCardsComponent implements OnInit, OnDestroy, OnChanges {
+export class DeckCardsInformationComponent implements OnInit, OnDestroy, OnChanges {
   @Input() cards?: PokemonCard[];
   @Input() deckCards$?: Observable<PokemonCard[]>;
   subscription = new Subject();
